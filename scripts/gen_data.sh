@@ -16,7 +16,7 @@ echo "Compilando dbgen..."
 make -f makefile.suite dbgen
 
 echo "Gerando arquivos .tbl com scale factor = $SCALE_FACTOR ..."
-./dbgen -s -y "$SCALE_FACTOR"
+./dbgen -s "$SCALE_FACTOR"
 
 # Move os arquivos para a pasta de saída específica
 mv *.tbl "../$OUTDIR/$SCALE_DIR"/
