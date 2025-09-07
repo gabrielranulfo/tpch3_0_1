@@ -21,3 +21,5 @@ source "$VENV_DIR/bin/activate"
 
 "$VENV_DIR/bin/pip" install polars
 #"$VENV_DIR/bin/pip" install polars-lts-cpu
+
+"$VENV_DIR/bin/pip" install -r requirements.txt

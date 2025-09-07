@@ -1,13 +1,16 @@
 from datetime import datetime, timedelta
+import dask.config as ddconfig
 import dask.dataframe as dd
 import os
 
-scale = os.environ.get("SCALE_FACTOR", "1")
-dataset_path = f"data_tbl/scale-{scale}/"
+N_CORES = int(os.environ.get("N_CORES", "1"))
+SCALE = os.environ.get("SCALE_FACTOR", "1")
+
+ddconfig.set(scheduler='threads', num_workers=N_CORES)
+dataset_path = f"data_tbl/scale-{SCALE}/"
 fs = None
 
-
-def query_01(dataset_path, fs, scale):
+def query_01(dataset_path, fs, SCALE):
     VAR1 = datetime(1998, 9, 2)
     #lineitem_ds = dd.read_parquet(dataset_path + "lineitem", filesystem=fs)
     lineitem_ds = dd.read_parquet(os.path.join(dataset_path, "lineitem.parquet"), filesystem=fs)
@@ -45,11 +48,10 @@ def query_01(dataset_path, fs, scale):
 
     return total.reset_index().sort_values(["l_returnflag", "l_linestatus"])
 
-
-result = query_01(dataset_path, fs, scale)
+result = query_01(dataset_path, fs, SCALE)
 # print(result.compute())
 
-def query_02(dataset_path, fs, scale):
+def query_02(dataset_path, fs, SCALE):
     var1 = 15
     var2 = "BRASS"
     var3 = "EUROPE"
@@ -111,10 +113,10 @@ def query_02(dataset_path, fs, scale):
         .head(100, compute=False)  # usa Dask .head() sem computar ainda
     )
 
-result = query_02(dataset_path, fs, scale)
+result = query_02(dataset_path, fs, SCALE)
 # print(result.compute())
 
-def query_03(dataset_path, fs, scale):
+def query_03(dataset_path, fs, SCALE):
     var1 = datetime.strptime("1995-03-15", "%Y-%m-%d")
     var2 = "BUILDING"
 
@@ -146,10 +148,10 @@ def query_03(dataset_path, fs, scale):
         .head(10, compute=False)[["l_orderkey", "revenue", "o_orderdate", "o_shippriority"]]
     )
 
-result = query_03(dataset_path, fs, scale)
+result = query_03(dataset_path, fs, SCALE)
 # print(result.compute())
 
-def query_04(dataset_path, fs, scale):
+def query_04(dataset_path, fs, SCALE):
     date1 = datetime.strptime("1993-10-01", "%Y-%m-%d")
     date2 = datetime.strptime("1993-07-01", "%Y-%m-%d")
 
@@ -179,10 +181,10 @@ def query_04(dataset_path, fs, scale):
 
     return result_df
 
-result = query_04(dataset_path, fs, scale)
+result = query_04(dataset_path, fs, SCALE)
 # print(result.compute())
 
-def query_05(dataset_path, fs, scale):
+def query_05(dataset_path, fs, SCALE):
     date1 = datetime.strptime("1994-01-01", "%Y-%m-%d")
     date2 = datetime.strptime("1995-01-01", "%Y-%m-%d")
 
@@ -218,10 +220,10 @@ def query_05(dataset_path, fs, scale):
 
     return gb.reset_index().sort_values("revenue", ascending=False)
 
-result = query_05(dataset_path, fs, scale)
+result = query_05(dataset_path, fs, SCALE)
 # print(result.compute())
 
-def query_06(dataset_path, fs, scale):
+def query_06(dataset_path, fs, SCALE):
     date1 = datetime.strptime("1994-01-01", "%Y-%m-%d")
     date2 = datetime.strptime("1995-01-01", "%Y-%m-%d")
     var3 = 24
@@ -243,10 +245,10 @@ def query_06(dataset_path, fs, scale):
     revenue = (flineitem.l_extendedprice * flineitem.l_discount).to_frame()
     return revenue.sum().to_frame("revenue")
 
-result = query_06(dataset_path, fs, scale)
+result = query_06(dataset_path, fs, SCALE)
 # print(result.compute())
 
-def query_07(dataset_path, fs, scale):
+def query_07(dataset_path, fs, SCALE):
     var1 = datetime.strptime("1995-01-01", "%Y-%m-%d")
     var2 = datetime.strptime("1997-01-01", "%Y-%m-%d")
 
@@ -306,10 +308,10 @@ def query_07(dataset_path, fs, scale):
 
     return result_df.sort_values(by=["supp_nation", "cust_nation", "l_year"], ascending=True)
 
-result = query_07(dataset_path, fs, scale)
+result = query_07(dataset_path, fs, SCALE)
 # print(result.compute())
 
-def query_08(dataset_path, fs, scale):
+def query_08(dataset_path, fs, SCALE):
     var1 = datetime.strptime("1995-01-01", "%Y-%m-%d")
     var2 = datetime.strptime("1997-01-01", "%Y-%m-%d")
 
@@ -356,10 +358,10 @@ def query_08(dataset_path, fs, scale):
 
     return final.sort_values(by=["o_year"], ascending=True)[["o_year", "mkt_share"]]
 
-result = query_08(dataset_path, fs, scale)
+result = query_08(dataset_path, fs, SCALE)
 # print(result.compute())
 
-def query_09(dataset_path, fs, scale):
+def query_09(dataset_path, fs, SCALE):
     """
     Query 9: cálculo do lucro por nação e ano para partes com 'green' no nome
     """
@@ -409,10 +411,10 @@ def query_09(dataset_path, fs, scale):
 
     return result
 
-result = query_09(dataset_path, fs, scale)
+result = query_09(dataset_path, fs, SCALE)
 # print(result.compute())
 
-def query_10(dataset_path, fs, scale):
+def query_10(dataset_path, fs, SCALE):
     """
     Query 10: Top 20 clientes por receita para itens retornados em um intervalo específico.
     """
@@ -471,13 +473,13 @@ def query_10(dataset_path, fs, scale):
     )
 
     return result
-result = query_10(dataset_path, fs, scale)
+result = query_10(dataset_path, fs, SCALE)
 #print(f"Query 10 Result: {result.compute()}")
 
-def query_11(dataset_path, fs, scale):
+def query_11(dataset_path, fs, SCALE):
     """
     Query 11: Valor total de partsupp por parte para fornecedores da Alemanha,
-    filtrando por um threshold baseado no scale factor.
+    filtrando por um threshold baseado no SCALE factor.
     """
     partsupp = dd.read_parquet(os.path.join(dataset_path, "partsupp.parquet"), filesystem=fs)
     supplier = dd.read_parquet(os.path.join(dataset_path, "supplier.parquet"), filesystem=fs)
@@ -494,7 +496,7 @@ def query_11(dataset_path, fs, scale):
     joined = joined[joined.n_name == "GERMANY"]
 
     # calcular threshold
-    threshold = (joined.ps_supplycost * joined.ps_availqty).sum() * 0.0001 / float(scale)
+    threshold = (joined.ps_supplycost * joined.ps_availqty).sum() * 0.0001 / float(SCALE)
 
     # calcular valor
     joined["value"] = joined.ps_supplycost * joined.ps_availqty
@@ -510,10 +512,10 @@ def query_11(dataset_path, fs, scale):
 
     return res
 
-result = query_11(dataset_path, fs, scale)
+result = query_11(dataset_path, fs, SCALE)
 #print(result.compute())
 
-def query_12(dataset_path, fs, scale):
+def query_12(dataset_path, fs, SCALE):
     """
     Query 12: Contagem de linhas de pedidos com prioridade alta e baixa por modo de envio.
     """
@@ -551,10 +553,10 @@ def query_12(dataset_path, fs, scale):
 
     return result
 
-result = query_12(dataset_path, fs, scale)
+result = query_12(dataset_path, fs, SCALE)
 #print(result.compute())
 
-def query_13(dataset_path, fs, scale):
+def query_13(dataset_path, fs, SCALE):
     """
     Query 13: Distribuição de clientes pelo número de pedidos, ignorando pedidos com 'special requests'.
     """
@@ -590,10 +592,10 @@ def query_13(dataset_path, fs, scale):
 
     return result
 
-result = query_13(dataset_path, fs, scale)
+result = query_13(dataset_path, fs, SCALE)
 #print(result.compute())
 
-def query_14(dataset_path, fs, scale):
+def query_14(dataset_path, fs, SCALE):
     """
     Query 14: Receita percentual de itens promocionais em um intervalo de datas específico.
     """
@@ -626,10 +628,10 @@ def query_14(dataset_path, fs, scale):
         npartitions=1,
     )
 
-result = query_14(dataset_path, fs, scale)
+result = query_14(dataset_path, fs, SCALE)
 #print(result.compute())
 
-def query_15(dataset_path, fs, scale):
+def query_15(dataset_path, fs, SCALE):
     """
     Query 15: Supplier(s) com maior receita em um intervalo específico.
     """
@@ -666,10 +668,10 @@ def query_15(dataset_path, fs, scale):
 
     return result
 
-result = query_15(dataset_path, fs, scale)
+result = query_15(dataset_path, fs, SCALE)
 #print(result.compute())
 
-def query_16(dataset_path, fs, scale):
+def query_16(dataset_path, fs, SCALE):
     """
     Query 16: Contagem de suppliers distintos por part, filtrando por marcas, tipos e tamanho, 
     excluindo suppliers com comentários de reclamações de clientes.
@@ -711,10 +713,10 @@ def query_16(dataset_path, fs, scale):
 
     return result
 
-result = query_16(dataset_path, fs, scale)
+result = query_16(dataset_path, fs, SCALE)
 #print(result.compute())
 
-def query_17(dataset_path, fs, scale):
+def query_17(dataset_path, fs, SCALE):
     """
     Query 17: Calcula a média anual de l_extendedprice para parts da marca Brand#23,
     contêiner MED BOX e quantidade menor que 20% da média por partkey.
@@ -745,11 +747,11 @@ def query_17(dataset_path, fs, scale):
     # calcular média anual
     return ((table.l_extendedprice.to_frame().sum() / 7.0).round(2)).to_frame("avg_yearly")
 
-result = query_17(dataset_path, fs, scale)
+result = query_17(dataset_path, fs, SCALE)
 #print(result.compute())
 
 '''
-def query_18(dataset_path, fs, scale):
+def query_18(dataset_path, fs, SCALE):
 
     customer = dd.read_parquet(os.path.join(dataset_path, "customer.parquet"), filesystem=fs, columns=None)
     orders = dd.read_parquet(os.path.join(dataset_path, "orders.parquet"), filesystem=fs, columns=None)
@@ -780,7 +782,7 @@ def query_18(dataset_path, fs, scale):
     return result
 '''
 
-def query_19(dataset_path, fs, scale):
+def query_19(dataset_path, fs, SCALE):
     import dask.dataframe as dd
 
     lineitem = dd.read_parquet(dataset_path + "lineitem.parquet", filesystem=fs)
@@ -826,10 +828,10 @@ def query_19(dataset_path, fs, scale):
     # Retorna resultado agregado
     return filtered_table[["revenue"]].sum().round(2).to_frame("revenue")
 
-result = query_19(dataset_path, fs, scale)
+result = query_19(dataset_path, fs, SCALE)
 #print(result.compute())
 
-def query_20(dataset_path, fs, scale):
+def query_20(dataset_path, fs, SCALE):
     lineitem = dd.read_parquet(dataset_path + "lineitem.parquet", filesystem=fs)
     supplier = dd.read_parquet(dataset_path + "supplier.parquet", filesystem=fs)
     nation = dd.read_parquet(dataset_path + "nation.parquet", filesystem=fs)
@@ -872,11 +874,11 @@ def query_20(dataset_path, fs, scale):
 
     return q_final[["s_name", "s_address"]].sort_values("s_name")
 
-result = query_20(dataset_path, fs, scale)
+result = query_20(dataset_path, fs, SCALE)
 #print(result.compute())
 
 '''
-def query_21(dataset_path, fs, scale):
+def query_21(dataset_path, fs, SCALE):
     supplier = dd.read_parquet(dataset_path + "supplier.parquet", filesystem=fs)
     lineitem = dd.read_parquet(dataset_path + "lineitem.parquet", filesystem=fs)
     orders = dd.read_parquet(dataset_path + "orders.parquet", filesystem=fs)
@@ -910,11 +912,11 @@ def query_21(dataset_path, fs, scale):
         .head(100, compute=False)
     )
 
-result = query_21(dataset_path, fs, scale)
+result = query_21(dataset_path, fs, SCALE)
 #print(result.compute())
 
 
-def query_22(dataset_path, fs, scale):
+def query_22(dataset_path, fs, SCALE):
     customer = dd.read_parquet(dataset_path + "customer.parquet", filesystem=fs)
     orders = dd.read_parquet(dataset_path + "orders.parquet", filesystem=fs)
 
@@ -937,6 +939,6 @@ def query_22(dataset_path, fs, scale):
 
     return result.reset_index().sort_values("cntrycode")
     
-result = query_22(dataset_path, fs, scale)
+result = query_22(dataset_path, fs, SCALE)
 #print(result.compute())
 '''
