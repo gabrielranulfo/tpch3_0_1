@@ -23,3 +23,4 @@ source .venv/bin/activate
 #python3 scripts/convert_tbl.py
 
 python3 -m queries.lib_dask
+python3 -m queries.lib_pandas
