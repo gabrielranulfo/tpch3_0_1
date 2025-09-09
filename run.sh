@@ -21,7 +21,7 @@ export STORAGE_FORMAT
 #export MODIN_ENGINE_MEMORY
 
 # Cria o ambiente virtual e instala dependências
-#./scripts/create_env.sh
+./scripts/create_env.sh
 
 # Ativa o ambiente virtual
 source .venv/bin/activate

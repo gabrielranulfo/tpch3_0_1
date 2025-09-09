@@ -1,3 +1,5 @@
+[![wakatime](https://wakatime.com/badge/user/939444ec-3797-43ff-bb09-6e41081ae12c/project/b530f65f-16ef-4154-9773-b2535def8ce3.svg)](https://wakatime.com/badge/user/939444ec-3797-43ff-bb09-6e41081ae12c/project/b530f65f-16ef-4154-9773-b2535def8ce3)
+
 # TPC-H 3.0 Setup e Execução
 
 Este repositório contém scripts e instruções para gerar os dados do benchmark TPC-H 3.0, criar o ambiente Python necessário e converter os arquivos gerados para CSV e Parquet.
@@ -8,7 +10,7 @@ Este repositório contém scripts e instruções para gerar os dados do benchmar
 
 Antes de iniciar, certifique-se de ter instalado:
 
-- Python 3.12 ou superior
+- Python 3.11 ou superior
 - `pip`
 - Ferramentas de compilação (`build-essential`) no Linux
 - Git (opcional, se estiver clonando o repositório)
@@ -63,6 +65,41 @@ pip install polars
 export SCALE_FACTOR=5
 ./run.sh
 
+```
+---
+### Variável: `N_CORES`
+---
+Controla o número de núcleos de CPU utilizados pelas bibliotecas paralelas.
+
+**Valores possíveis:**
+- `N_CORES=1`: Execução single-thread (padrão)
+- `N_CORES=4`: Utiliza 4 núcleos para processamento paralelo  
+- `N_CORES=8`: Utiliza 8 núcleos para máxima paralelização
+
+## Configuração do Modin
+
+### Variáveis Principais:
+
+#### `MODIN_ENGINE` - Motor de Execução
+```bash
+export MODIN_ENGINE=python    # Single-thread (padrão)
+export MODIN_ENGINE=dask      # Paralelismo com Dask
+export MODIN_ENGINE=ray       # Paralelismo com Ray
+```
+
+### Variáveis de Controle de Memória:
+
+#### `MODIN_MEMORY` - Limite Total de Memória
+```bash
+export MODIN_MEMORY=8000000000  # 8GB em bytes
+export MODIN_ENGINE_MEMORY=4000000000  # 4GB por worker
+```
+
+### Variável para controle do Dataframe principal
+```bash
+export STORAGE_FORMAT=pandas   # DataFrame pandas tradicional
+export STORAGE_FORMAT=omnisci  # Requer OmniSciDB
+export STORAGE_FORMAT=hdk      # Requer Intel Analytics Zoo
 ```
 ---
 ### Referências
