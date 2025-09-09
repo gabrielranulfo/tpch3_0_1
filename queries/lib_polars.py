@@ -780,4 +780,4 @@ if __name__ == "__main__":
     #print(f"Polars Query 21: {result21}")
 
     result22 = query_22(dataset_path)
-    print(f"Polars Query 22: {result22}")
+    #print(f"Polars Query 22: {result22}")
