@@ -24,7 +24,7 @@ def query_01(dataset_path, SCALE):
 
     return total.reset_index().sort_values(['l_returnflag', 'l_linestatus'])
 
-result = query_01(dataset_path, SCALE)
+#result = query_01(dataset_path, SCALE)
 #print(f"Pandas Query 01 : \n{result}")
 
 def query_02(dataset_path):
@@ -68,7 +68,7 @@ def query_02(dataset_path):
     
     return result
 
-result = query_02(dataset_path)
+#result = query_02(dataset_path)
 #print(f"Pandas Query 02 : \n{result}")
 
 
@@ -95,7 +95,7 @@ def query_03(dataset_path):
     
     return result[['l_orderkey', 'revenue', 'o_orderdate', 'o_shippriority']]
 
-result = query_03(dataset_path)
+#result = query_03(dataset_path)
 #print(f"Pandas Query 03 : \n{result}")
 
 def query_04(dataset_path):
@@ -120,7 +120,7 @@ def query_04(dataset_path):
     
     return result
 
-result = query_04(dataset_path)
+#result = query_04(dataset_path)
 #print(f"Pandas Query 04 : \n{result}")
 
 def query_05(dataset_path):
@@ -148,7 +148,7 @@ def query_05(dataset_path):
                   .sort_values('revenue', ascending=False)
     
     return result
-result = query_05(dataset_path)
+#result = query_05(dataset_path)
 #print(f"Pandas Query 05 : \n{result}")
 
 def query_06(dataset_path):
@@ -172,7 +172,7 @@ def query_06(dataset_path):
     
     return pd.DataFrame({'revenue': [total_revenue]})
 
-result = query_06(dataset_path)
+#result = query_06(dataset_path)
 #print(f"Pandas Query 06 : \n{result}")
 
 def query_07(dataset_path):
@@ -221,7 +221,7 @@ def query_07(dataset_path):
     
     return result
 
-result = query_07(dataset_path)
+#result = query_07(dataset_path)
 #print(f"Pandas Query 07 : \n{result}")
 
 def query_08(dataset_path):
@@ -263,7 +263,7 @@ def query_08(dataset_path):
 
     return result
 
-result = query_08(dataset_path)
+#result = query_08(dataset_path)
 #print(f"Pandas Query 08 : \n{result}")
 
 def query_09(dataset_path):
@@ -295,7 +295,7 @@ def query_09(dataset_path):
 
     return result
 
-result = query_09(dataset_path)
+#result = query_09(dataset_path)
 #print(f"Pandas Query 09 : \n{result}")
 
 def query_10(dataset_path):
@@ -330,7 +330,7 @@ def query_10(dataset_path):
 
     return result
 
-result = query_10(dataset_path)
+#result = query_10(dataset_path)
 #print(f"Pandas Query 10 : \n{result}")
 
 def query_11(dataset_path, scale):
@@ -357,7 +357,7 @@ def query_11(dataset_path, scale):
                  .sort_values('value', ascending=False)
 
     return result
-result = query_11(dataset_path, int(SCALE))
+#result = query_11(dataset_path, int(SCALE))
 #print(f"Pandas Query 11 : \n{result}")
 
 def query_12(dataset_path):
@@ -388,7 +388,7 @@ def query_12(dataset_path):
 
     return result
 
-result = query_12(dataset_path)
+#result = query_12(dataset_path)
 #print(f"Pandas Query 12 : \n{result}")
 
 def query_13(dataset_path):
@@ -419,7 +419,7 @@ def query_13(dataset_path):
     
     return result_final
 
-result = query_13(dataset_path)
+#result = query_13(dataset_path)
 #print(f"Pandas Query 13 : \n{result}")
 
 def query_14(dataset_path):
@@ -449,7 +449,7 @@ def query_14(dataset_path):
     
     return pd.DataFrame({'promo_revenue': [promo_revenue]})
 
-result = query_14(dataset_path)
+#result = query_14(dataset_path)
 #print(f"Pandas Query 14 : \n{result}")
 
 def query_15(dataset_path):
@@ -479,7 +479,7 @@ def query_15(dataset_path):
 
     return result
 
-result = query_15(dataset_path)
+#result = query_15(dataset_path)
 #print(f"Pandas Query 15 : \n{result}")
 
 def query_16(dataset_path):
@@ -509,7 +509,7 @@ def query_16(dataset_path):
 
     return result
 
-result = query_16(dataset_path)
+#result = query_16(dataset_path)
 #print(f"Pandas Query 16 : \n{result}")
 
 def query_17(dataset_path):
@@ -536,7 +536,7 @@ def query_17(dataset_path):
     
     return pd.DataFrame({'avg_yearly': [avg_yearly]})
 
-result = query_17(dataset_path)
+#result = query_17(dataset_path)
 #print(f"Pandas Query 17 : \n{result}")
 
 def query_18(dataset_path):
@@ -563,7 +563,7 @@ def query_18(dataset_path):
 
     return result
 
-result = query_18(dataset_path)
+#result = query_18(dataset_path)
 #print(f"Pandas Query 18 : \n{result}")
 
 def query_19(dataset_path):
@@ -595,7 +595,7 @@ def query_19(dataset_path):
     
     return pd.DataFrame({'revenue': [revenue]})
 
-result = query_19(dataset_path)
+#result = query_19(dataset_path)
 #print(f"Pandas Query 19 : \n{result}") 
 
 def query_20(dataset_path):
@@ -634,7 +634,7 @@ def query_20(dataset_path):
 
     return result
 
-result = query_20(dataset_path)
+#result = query_20(dataset_path)
 #print(f"Pandas Query 20 : \n{result}")
 
 def query_21(dataset_path):
@@ -670,7 +670,7 @@ def query_21(dataset_path):
 
     return final_result
 
-result = query_21(dataset_path)
+#result = query_21(dataset_path)
 #print(f"Pandas Query 21 : \n{result}")
 
 def query_22(dataset_path):
@@ -700,5 +700,73 @@ def query_22(dataset_path):
 
     return result
 
-result = query_22(dataset_path)
+#result = query_22(dataset_path)
 #print(f"Pandas Query 22 : \n{result}")
+
+# Exemplo de uso para pandas
+if __name__ == "__main__":
+    result1 = query_01(dataset_path, SCALE)
+    #print(f"Pandas Query 01: {result1}")
+
+    result2 = query_02(dataset_path)
+    #print(f"Pandas Query 02: {result2}")
+
+    result3 = query_03(dataset_path)
+    #print(f"Pandas Query 03: {result3}")
+
+    result4 = query_04(dataset_path)
+    #print(f"Pandas Query 04: {result4}")
+
+    result5 = query_05(dataset_path)
+    #print(f"Pandas Query 05: {result5}")
+
+    result6 = query_06(dataset_path)
+    #print(f"Pandas Query 06: {result6}")
+
+    result7 = query_07(dataset_path)
+    #print(f"Pandas Query 07: {result7}")
+
+    result8 = query_08(dataset_path)
+    #print(f"Pandas Query 08: {result8}")
+
+    result9 = query_09(dataset_path)
+    #print(f"Pandas Query 09: {result9}")
+
+    result10 = query_10(dataset_path)
+    #print(f"Pandas Query 10: {result10}")
+
+    result11 = query_11(dataset_path, SCALE)
+    #print(f"Pandas Query 11: {result11}")
+
+    result12 = query_12(dataset_path)
+    #print(f"Pandas Query 12: {result12}")
+
+    result13 = query_13(dataset_path)
+    #print(f"Pandas Query 13: {result13}")
+
+    result14 = query_14(dataset_path)
+    #print(f"Pandas Query 14: {result14}")
+
+    result15 = query_15(dataset_path)
+    #print(f"Pandas Query 15: {result15}")
+
+    result16 = query_16(dataset_path)
+    #print(f"Pandas Query 16: {result16}")
+
+    result17 = query_17(dataset_path)
+    #print(f"Pandas Query 17: {result17}")
+
+    result18 = query_18(dataset_path)
+    #print(f"Pandas Query 18: {result18}")
+
+    result19 = query_19(dataset_path)
+    #print(f"Pandas Query 19: {result19}")
+
+    result20 = query_20(dataset_path)
+    #print(f"Pandas Query 20: {result20}")
+
+    result21 = query_21(dataset_path)
+    #print(f"Pandas Query 21: {result21}")
+
+    result22 = query_22(dataset_path)
+    print(f"Pandas Query 22: {result22}")

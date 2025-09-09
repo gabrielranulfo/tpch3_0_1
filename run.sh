@@ -7,11 +7,21 @@ SCALE_FACTOR=1
 #Define número de núcleos (ou usa valor já exportado)
 N_CORES=1
 
+#Define Modin engine dask,ray ou python.
+MODIN_ENGINE=python
+STORAGE_FORMAT=pandas
+#MODIN_MEMORY=8000000000  # 8GB
+#MODIN_ENGINE_MEMORY=4000000000
+
 export N_CORES
 export SCALE_FACTOR
+export MODIN_ENGINE
+export STORAGE_FORMAT
+#export MODIN_MEMORY
+#export MODIN_ENGINE_MEMORY
 
 # Cria o ambiente virtual e instala dependências
-./scripts/create_env.sh
+#./scripts/create_env.sh
 
 # Ativa o ambiente virtual
 source .venv/bin/activate
@@ -24,4 +34,5 @@ source .venv/bin/activate
 
 python3 -m queries.lib_dask
 python3 -m queries.lib_pandas
-python3 -m queries.lib_modin
+#python3 -m queries.lib_modin
+python3 -m queries.lib_polars
