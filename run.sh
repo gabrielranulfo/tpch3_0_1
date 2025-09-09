@@ -11,7 +11,7 @@ export N_CORES
 export SCALE_FACTOR
 
 # Cria o ambiente virtual e instala dependências
-#./scripts/create_env.sh
+./scripts/create_env.sh
 
 # Ativa o ambiente virtual
 source .venv/bin/activate
@@ -24,3 +24,4 @@ source .venv/bin/activate
 
 python3 -m queries.lib_dask
 python3 -m queries.lib_pandas
+python3 -m queries.lib_modin
