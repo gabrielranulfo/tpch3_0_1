@@ -17,9 +17,15 @@ source "$VENV_DIR/bin/activate"
 
 # Atualiza pip
 "$VENV_DIR/bin/pip" install --upgrade pip
-
-
 "$VENV_DIR/bin/pip" install polars
 #"$VENV_DIR/bin/pip" install polars-lts-cpu
 
 "$VENV_DIR/bin/pip" install -r requirements.txt
+
+# Baixa e extrai Spark e OpenJDK
+
+wget -q wget https://dlcdn.apache.org/spark/spark-4.0.1/spark-4.0.1-bin-hadoop3.tgz
+wget -q https://download.java.net/openjdk/jdk17.0.0.1/ri/openjdk-17.0.0.1+2_linux-x64_bin.tar.gz
+
+tar xf spark-4.0.1-bin-hadoop3.tgz
+tar xf openjdk-17.0.0.1+2_linux-x64_bin.tar.gz

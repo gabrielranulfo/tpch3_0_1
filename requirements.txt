@@ -1,1 +1,3 @@
 dask[complete]
+pyspark
+findspark

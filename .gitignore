@@ -1,4 +1,6 @@
 .venv*
+.spark-venv*
+__pycache__*
 .git/*
 /data_tbl/*
 *__pycache__*
@@ -17,3 +19,8 @@
 *.tsv
 *.txt
 *.slurm
+jdk-*/
+spark-*/
+openjdk-*/
+*_bin.tar.gz
+*.tgz
