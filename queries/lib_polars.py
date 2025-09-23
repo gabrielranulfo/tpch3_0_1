@@ -2,7 +2,9 @@ import polars as pl
 import os
 from datetime import date
 
+N_CORES = int(os.environ.get("N_CORES", "1"))
 SCALE = os.environ.get("SCALE_FACTOR", "1")
+os.environ["POLARS_MAX_THREADS"] = str(N_CORES)
 dataset_path = f"data_tbl/scale-{SCALE}/"
 
 def query_01(dataset_path, SCALE):
