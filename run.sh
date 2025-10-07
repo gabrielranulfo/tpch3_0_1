@@ -31,6 +31,10 @@ echo $WORK_DIR
 # Ativa o ambiente virtual
 source .venv/bin/activate
 
+pip install --upgrade pip
+
+pip install -r requirements.txt
+
 # Gera os .tbl
 ./scripts/gen_data.sh
 

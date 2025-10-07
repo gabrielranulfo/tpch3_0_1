@@ -20,7 +20,7 @@ RUN chmod +x run.sh
 RUN ./run.sh
 
 # Atualizar pip e instalar dependências
-RUN pip install --upgrade pip
+#RUN pip install --upgrade pip
 
 # Mantém container ativo (caso queira usá-lo como dev)
 CMD ["tail", "-f", "/dev/null"]
