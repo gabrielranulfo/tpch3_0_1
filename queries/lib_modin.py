@@ -360,7 +360,7 @@ def query_11(dataset_path, scale):
     nation_ds = pd.read_parquet(os.path.join(dataset_path, "nation.parquet"))
 
     var_1 = "GERMANY"
-    var_2 = 0.0001 / scale
+    var_2 = 0.0001 / float(scale)
 
     # Primeira parte: join das tabelas e filtro por nação
     res_1 = part_supp_ds.merge(supplier_ds, left_on="ps_suppkey", right_on="s_suppkey") \

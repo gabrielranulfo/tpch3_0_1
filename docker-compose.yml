@@ -1,0 +1,45 @@
+version: "3.9"
+
+services:
+  app1:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: python_git_app1
+    volumes:
+      - ./workspace:/workspace
+    working_dir: /workspace
+    command: tail -f /dev/null
+    mem_limit: 4g  # Limite de 8 GB de RAM (compatível com Compose standalone)
+    mem_reservation: 2g  # Reserva mínima de 4 GB (opcional, para estabilidade)
+    cpus: 2  # Limita a 2 CPUs para evitar sobrecarga
+    networks:
+      - cluster-network
+
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:latest
+    container_name: cadvisor
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /:/rootfs:ro
+      - /var/lib/docker:/var/lib/docker:ro
+      - /sys:/sys:ro
+      - /dev/disk:/dev/disk:ro
+    ports:
+      - "8080:8080"
+    command:
+      - --docker_only
+      - --housekeeping_interval=1s
+      - --event_storage_age_limit=5m
+      - --allow_dynamic_housekeeping
+    mem_limit: 512m  # Limite para cAdvisor (baixo uso)
+    cpus: 0.5  # Limita cAdvisor a 0.5 CPU
+    networks:
+      - cluster-network
+    depends_on:
+      - app1
+    restart: unless-stopped
+
+networks:
+  cluster-network:
+    driver: bridge

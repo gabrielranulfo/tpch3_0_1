@@ -24,4 +24,6 @@ spark-*/
 openjdk-*/
 *_bin.tar.gz
 *.tgz
+*.out
+*.err
 *docker*
