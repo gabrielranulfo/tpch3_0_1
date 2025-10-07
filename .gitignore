@@ -26,3 +26,4 @@ openjdk-*/
 *.tgz
 *.out
 *.err
+*docker*
