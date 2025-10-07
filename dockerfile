@@ -1,7 +1,7 @@
 FROM python:3.13-slim
 
 # Atualizar pacotes do sistema para corrigir vulnerabilidades
-RUN apt-get update && apt-get upgrade -y && apt-get install -y git bash && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get upgrade -y && apt-get install -y git bash tar wget && rm -rf /var/lib/apt/lists/*
 
 # Clonar repositório
 RUN git clone https://github.com/gabrielranulfo/tpch3_0_1.git /workspace
