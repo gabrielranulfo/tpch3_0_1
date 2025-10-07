@@ -3,7 +3,13 @@ FROM python:3.13-slim
 # Atualizar pacotes do sistema para corrigir vulnerabilidades
 RUN apt-get update && apt-get upgrade -y && apt-get install -y git bash tar wget && rm -rf /var/lib/apt/lists/*
 
+ENV JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
+ENV PATH=$JAVA_HOME/bin:$PATH
+
 RUN mkdir /workspace
+
+# Instalar dependências do requirements.txt
+RUN pip install -r requirements.txt
 
 # Clonar repositório
 RUN git clone https://github.com/gabrielranulfo/tpch3_0_1.git /workspace
