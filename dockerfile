@@ -39,8 +39,8 @@ ENV SPARK_HOME=/workspace/spark-4.0.1-bin-hadoop3
 ENV PATH=$SPARK_HOME/bin:$PATH
 
 # Garantir permissão de execução e rodar o script usando o venv
-RUN chmod +x run.sh && \
-    ./.venv/bin/python run.sh
+RUN chmod +x run.sh 
+RUN run.sh
 
 # Mantém container ativo (caso queira usá-lo como dev)
 CMD ["tail", "-f", "/dev/null"]
