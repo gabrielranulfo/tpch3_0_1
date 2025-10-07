@@ -8,9 +8,6 @@ ENV PATH=$JAVA_HOME/bin:$PATH
 
 RUN mkdir /workspace
 
-# Instalar dependências do requirements.txt
-RUN pip install -r requirements.txt
-
 # Clonar repositório
 RUN git clone https://github.com/gabrielranulfo/tpch3_0_1.git /workspace
 

@@ -23,6 +23,8 @@ export STORAGE_FORMAT
 #export MODIN_ENGINE_MEMORY
 export WORK_DIR
 
+echo $WORK_DIR
+
 # Cria o ambiente virtual e instala dependências
 ./scripts/create_env.sh
 
