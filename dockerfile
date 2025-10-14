@@ -35,6 +35,6 @@ RUN python3.13 -m venv .venv && \
     ./.venv/bin/pip install -r requirements.txt && \
     chmod +x *.sh
 
-RUN run.sh
+RUN ./run.sh
 
 CMD ["tail", "-f", "/dev/null"]
