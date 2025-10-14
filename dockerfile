@@ -1,55 +1,38 @@
 ARG CACHE_BUST=1
 
-FROM python:3.13-slim
+FROM ubuntu:24.04
 
-# Atualizar pacotes do sistema para corrigir vulnerabilidades
-RUN apt-get update && apt-get upgrade -y && apt-get install -y git bash tar wget
+ENV DEBIAN_FRONTEND=noninteractive
 
-RUN apt-get update && apt-get install -y nano vim htop
+# Instalar tudo em uma única camada para imagem menor
+RUN apt-get update && apt-get upgrade -y && \
+    apt-get install -y --no-install-recommends \
+    git bash tar wget nano vim htop \
+    curl ca-certificates software-properties-common && \
+    add-apt-repository ppa:deadsnakes/ppa -y && \
+    apt-get update && \
+    apt-get install -y --no-install-recommends \
+    python3.13 python3.13-venv python3.13-dev python3-pip \
+    openjdk-17-jdk && \
+    ln -sf /usr/bin/python3.13 /usr/bin/python3 && \
+    ln -sf /usr/bin/python3.13 /usr/bin/python && \
+    ln -sf /usr/bin/pip3 /usr/bin/pip && \
+    rm -rf /var/lib/apt/lists/*
 
-RUN apt-get update && apt-get install -y openjdk-17-jdk
+# Verificar instalações
+RUN java -version && python --version
 
-RUN mkdir /workspace
+RUN mkdir /workspace && \
+    git clone https://github.com/gabrielranulfo/tpch3_0_1.git /workspace
 
-# Clonar repositório
-RUN git clone https://github.com/gabrielranulfo/tpch3_0_1.git /workspace
-
-# Entrar no repositório
 WORKDIR /workspace
 
 RUN git checkout docker_config
 
-# Executar os comandos do create_env.sh diretamente no Dockerfile
-RUN VENV_DIR=".venv" && \
-    # Cria o ambiente virtual se não existir
-    if [ ! -d "$VENV_DIR" ]; then \
-        echo "Criando ambiente virtual em $VENV_DIR..." && \
-        python3 -m venv "$VENV_DIR"; \
-    else \
-        echo "Ambiente virtual já existe em $VENV_DIR"; \
-    fi
+# Ambiente virtual e dependências
+RUN python3.13 -m venv .venv && \
+    ./.venv/bin/pip install --upgrade pip polars && \
+    ./.venv/bin/pip install -r requirements.txt && \
+    chmod +x *.sh
 
-# Atualiza pip e instala dependências (usando o venv)
-RUN ./.venv/bin/pip install --upgrade pip && \
-    ./.venv/bin/pip install polars && \
-    ./.venv/bin/pip install -r requirements.txt
-
-# Baixa e extrai Spark e OpenJDK
-#RUN wget -q https://dlcdn.apache.org/spark/spark-4.0.1/spark-4.0.1-bin-hadoop3.tgz && \
-#    wget -q https://download.java.net/openjdk/jdk17.0.0.1/ri/openjdk-17.0.0.1+2_linux-x64_bin.tar.gz && \
-#    tar xf spark-4.0.1-bin-hadoop3.tgz && \
-#    tar xf openjdk-17.0.0.1+2_linux-x64_bin.tar.gz
-
-# Configurar environment variables para Java e Spark
-#ENV JAVA_HOME=/workspace/jdk-17.0.0.1+2
-#ENV PATH=$JAVA_HOME/bin:$PATH
-#ENV SPARK_HOME=/workspace/spark-4.0.1-bin-hadoop3
-#ENV PATH=$SPARK_HOME/bin:$PATH
-
-# Garantir permissão de execução e rodar o script usando o venv
-
-RUN chmod +x /workspace/*.sh
-RUN /workspace/run.sh
-
-# Mantém container ativo (caso queira usá-lo como dev)
 CMD ["tail", "-f", "/dev/null"]
