@@ -6,8 +6,8 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: python_git_app1
-    volumes:
-      - ./workspace:/workspace
+    #volumes:
+    #  - ./workspace:/workspace
     working_dir: /workspace
     command: tail -f /dev/null
     mem_limit: 4g

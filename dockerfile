@@ -5,6 +5,10 @@ FROM python:3.13-slim
 # Atualizar pacotes do sistema para corrigir vulnerabilidades
 RUN apt-get update && apt-get upgrade -y && apt-get install -y git bash tar wget && rm -rf /var/lib/apt/lists/*
 
+RUN apt-get update && apt-get install -y nano vim htop && rm -rf /var/lib/apt/lists/*
+
+RUN apt-get update && apt-get install -y openjdk-17-jdk && rm -rf /var/lib/apt/lists/*
+
 RUN mkdir /workspace
 
 # Clonar repositório
@@ -12,6 +16,8 @@ RUN git clone https://github.com/gabrielranulfo/tpch3_0_1.git /workspace
 
 # Entrar no repositório
 WORKDIR /workspace
+
+RUN git checkout docker_config
 
 # Executar os comandos do create_env.sh diretamente no Dockerfile
 RUN VENV_DIR=".venv" && \
@@ -43,7 +49,7 @@ RUN ./.venv/bin/pip install --upgrade pip && \
 # Garantir permissão de execução e rodar o script usando o venv
 
 RUN chmod +x /workspace/*.sh
-#RUN /workspace/run.sh
+RUN /workspace/run.sh
 
 # Mantém container ativo (caso queira usá-lo como dev)
 CMD ["tail", "-f", "/dev/null"]
