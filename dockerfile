@@ -3,11 +3,11 @@ ARG CACHE_BUST=1
 FROM python:3.13-slim
 
 # Atualizar pacotes do sistema para corrigir vulnerabilidades
-RUN apt-get update && apt-get upgrade -y && apt-get install -y git bash tar wget && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get upgrade -y && apt-get install -y git bash tar wget
 
-RUN apt-get update && apt-get install -y nano vim htop && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y nano vim htop
 
-RUN apt-get update && apt-get install -y openjdk-17-jdk && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y openjdk-17-jdk
 
 RUN mkdir /workspace
 
