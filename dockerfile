@@ -1,3 +1,5 @@
+ARG CACHE_BUST=1
+
 FROM python:3.13-slim
 
 # Atualizar pacotes do sistema para corrigir vulnerabilidades
