@@ -27,20 +27,20 @@ RUN ./.venv/bin/pip install --upgrade pip && \
     ./.venv/bin/pip install -r requirements.txt
 
 # Baixa e extrai Spark e OpenJDK
-RUN wget -q https://dlcdn.apache.org/spark/spark-4.0.1/spark-4.0.1-bin-hadoop3.tgz && \
-    wget -q https://download.java.net/openjdk/jdk17.0.0.1/ri/openjdk-17.0.0.1+2_linux-x64_bin.tar.gz && \
-    tar xf spark-4.0.1-bin-hadoop3.tgz && \
-    tar xf openjdk-17.0.0.1+2_linux-x64_bin.tar.gz
+#RUN wget -q https://dlcdn.apache.org/spark/spark-4.0.1/spark-4.0.1-bin-hadoop3.tgz && \
+#    wget -q https://download.java.net/openjdk/jdk17.0.0.1/ri/openjdk-17.0.0.1+2_linux-x64_bin.tar.gz && \
+#    tar xf spark-4.0.1-bin-hadoop3.tgz && \
+#    tar xf openjdk-17.0.0.1+2_linux-x64_bin.tar.gz
 
 # Configurar environment variables para Java e Spark
-ENV JAVA_HOME=/workspace/jdk-17.0.0.1+2
-ENV PATH=$JAVA_HOME/bin:$PATH
-ENV SPARK_HOME=/workspace/spark-4.0.1-bin-hadoop3
-ENV PATH=$SPARK_HOME/bin:$PATH
+#ENV JAVA_HOME=/workspace/jdk-17.0.0.1+2
+#ENV PATH=$JAVA_HOME/bin:$PATH
+#ENV SPARK_HOME=/workspace/spark-4.0.1-bin-hadoop3
+#ENV PATH=$SPARK_HOME/bin:$PATH
 
 # Garantir permissão de execução e rodar o script usando o venv
 
-#RUN chmod +x /workspace/run.sh 
+RUN chmod +x /workspace/*.sh
 #RUN /workspace/run.sh
 
 # Mantém container ativo (caso queira usá-lo como dev)
