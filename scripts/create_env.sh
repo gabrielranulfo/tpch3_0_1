@@ -18,6 +18,7 @@ source "$VENV_DIR/bin/activate"
 # Atualiza pip
 "$VENV_DIR/bin/pip" install --upgrade pip
 "$VENV_DIR/bin/pip" install polars
+
 #"$VENV_DIR/bin/pip" install polars-lts-cpu
 
 "$VENV_DIR/bin/pip" install -r requirements.txt
