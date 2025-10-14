@@ -1,7 +1,7 @@
 FROM python:3.13-slim
 
 # Atualizar pacotes do sistema para corrigir vulnerabilidades
-RUN apt-get update && apt-get upgrade -y && apt-get install -y git bash tar wget && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get upgrade -y && apt-get install -y git vi bash tar wget openjdk-17-jdk&& rm -rf /var/lib/apt/lists/*
 
 RUN mkdir /workspace
 
@@ -40,8 +40,8 @@ ENV PATH=$SPARK_HOME/bin:$PATH
 
 # Garantir permissão de execução e rodar o script usando o venv
 
-#RUN chmod +x run.sh 
-#RUN run.sh
+#RUN chmod +x /workspace/run.sh 
+#RUN /workspace/run.sh
 
 # Mantém container ativo (caso queira usá-lo como dev)
 CMD ["tail", "-f", "/dev/null"]
