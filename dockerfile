@@ -5,6 +5,8 @@ FROM ubuntu:24.04
 ENV DEBIAN_FRONTEND=noninteractive
 
 # Instalar tudo em uma única camada para imagem menor
+
+RUN apt-get clean
 RUN apt-get update && apt-get upgrade -y && \
     apt-get install -y --no-install-recommends \
     git bash tar wget nano vim htop \
@@ -25,7 +27,7 @@ RUN java -version && python --version
 RUN mkdir /workspace && \
     git clone https://github.com/gabrielranulfo/tpch3_0_1.git /workspace
 
-WORKDIR /workspace
+WORKDIR /workspace/
 
 RUN git checkout docker_config
 

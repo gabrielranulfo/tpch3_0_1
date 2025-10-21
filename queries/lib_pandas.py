@@ -739,7 +739,7 @@ if __name__ == "__main__":
     #print(f"Pandas Query 11: {result11}")
 
     result12 = query_12(dataset_path)
-    #print(f"Pandas Query 12: {result12}")
+    ##print(f"Pandas Query 12: {result12}")
 
     result13 = query_13(dataset_path)
     #print(f"Pandas Query 13: {result13}")
@@ -769,4 +769,4 @@ if __name__ == "__main__":
     #print(f"Pandas Query 21: {result21}")
 
     result22 = query_22(dataset_path)
-    print(f"Pandas Query 22: {result22}")
+    #print(f"Pandas Query 22: {result22}")

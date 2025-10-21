@@ -42,7 +42,7 @@ pip install -r requirements.txt
 python3 scripts/convert_tbl.py
 
 python3 -m queries.lib_dask
-#python3 -m queries.lib_pandas
-#python3 -m queries.lib_modin
+python3 -m queries.lib_pandas
+python3 -m queries.lib_modin
 python3 -m queries.lib_polars
 python3 -m queries.lib_pyspark
