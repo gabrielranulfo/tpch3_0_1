@@ -334,12 +334,12 @@ def query_10(dataset_path):
 #print(f"Pandas Query 10 : \n{result}")
 
 def query_11(dataset_path, scale):
+    var_1 = "GERMANY"
+    var_2 = 0.0001 / float(scale)  # Converta scale para float
+
     supplier_ds = pd.read_parquet(os.path.join(dataset_path, "supplier.parquet"))
     part_supp_ds = pd.read_parquet(os.path.join(dataset_path, "partsupp.parquet"))
     nation_ds = pd.read_parquet(os.path.join(dataset_path, "nation.parquet"))
-
-    var_1 = "GERMANY"
-    var_2 = 0.0001 / float(scale)
 
     # Primeira parte: join das tabelas e filtro por nação
     res_1 = part_supp_ds.merge(supplier_ds, left_on="ps_suppkey", right_on="s_suppkey") \
